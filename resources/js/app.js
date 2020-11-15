@@ -9,9 +9,13 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 import router from './router'
+import ViewUI from 'view-design';
+import 'view-design/dist/styles/iview.css';
 
+Vue.use(ViewUI);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('main-component', require('./components/Main.vue').default);
 Vue.component('m-x', require('./components/Mix.vue').default);
 
 
