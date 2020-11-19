@@ -4,7 +4,7 @@
 			<div class="container-fluid">
 				<!--~~~~~~~ TABLE ONE ~~~~~~~~~-->
 				<div class="_1adminOverveiw_table_recent _box_shadow _border_radious _mar_b30 _p20">
-					<p class="_title0">Tags <Button><Icon type="md-add" /></Button></p>
+					<p class="_title0">Tags <Button @click="addModal=true"><Icon type="md-add" /></Button></p>
 
 					<div class="_overflow _table_div">
 						<table class="_table">
@@ -36,6 +36,20 @@
 				</div>
 				 <Page :total="100" />
 
+                <!-- modal -->
+                <Modal
+                    v-model="addModal"
+                    title="Add Tag"
+                    :mask-closable="false">
+                    <p>Content of dialog</p>
+                    <p>Content of dialog</p>
+                    <p>Content of dialog</p>
+
+                    <div slot="footer">
+                        <button type="default" @click="addModal=false">Close</button>
+                        <button type="primary" @click="addTag">Add</button>
+                    </div>
+                </Modal>
 			</div>
 		</div>
 	</div>
@@ -46,14 +60,15 @@ export default {
         return {
             data: {
                 tagName: '',
-            }
+            },
+            addModal : false,
+            isAdding: false,
         }
     },
-    async created() {
-        const res = await this.callApi('get', '/app/create_tag', {tagName: 'testtag'});
-        console.log(res)
-        if(res.status==200){
-        }
+    methods: {
+        // if(this.data.tagName.trim()=='') {
+        //     return this.e('Tag name is required'
+        //     )},
     },
 }
 </script>

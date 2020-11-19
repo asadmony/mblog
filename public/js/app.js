@@ -1944,14 +1944,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1999,36 +2005,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       data: {
         tagName: ''
-      }
+      },
+      addModal: false,
+      isAdding: false
     };
   },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var res;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return _this.callApi('get', '/app/create_tag', {
-                tagName: 'testtag'
-              });
-
-            case 2:
-              res = _context.sent;
-              console.log(res);
-
-              if (res.status == 200) {}
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
+  methods: {// if(this.data.tagName.trim()=='') {
+    //     return this.e('Tag name is required'
+    //     )},
   }
 });
 
@@ -85589,7 +85573,18 @@ var render = function() {
                 { staticClass: "_title0" },
                 [
                   _vm._v("Tags "),
-                  _c("Button", [_c("Icon", { attrs: { type: "md-add" } })], 1)
+                  _c(
+                    "Button",
+                    {
+                      on: {
+                        click: function($event) {
+                          _vm.addModal = true
+                        }
+                      }
+                    },
+                    [_c("Icon", { attrs: { type: "md-add" } })],
+                    1
+                  )
                 ],
                 1
               ),
@@ -85630,7 +85625,49 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("Page", { attrs: { total: 100 } })
+          _c("Page", { attrs: { total: 100 } }),
+          _vm._v(" "),
+          _c(
+            "Modal",
+            {
+              attrs: { title: "Add Tag", "mask-closable": false },
+              model: {
+                value: _vm.addModal,
+                callback: function($$v) {
+                  _vm.addModal = $$v
+                },
+                expression: "addModal"
+              }
+            },
+            [
+              _c("p", [_vm._v("Content of dialog")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Content of dialog")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Content of dialog")]),
+              _vm._v(" "),
+              _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+                _c(
+                  "button",
+                  {
+                    attrs: { type: "default" },
+                    on: {
+                      click: function($event) {
+                        _vm.addModal = false
+                      }
+                    }
+                  },
+                  [_vm._v("Close")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  { attrs: { type: "primary" }, on: { click: _vm.addTag } },
+                  [_vm._v("Add")]
+                )
+              ])
+            ]
+          )
         ],
         1
       )
@@ -101148,37 +101185,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 6]]);
       }))();
-    } //     i(desc, title = "Hey") {
-    //         this.$Notice.info({
-    //             title: title,
-    //             desc: desc
-    //         });
-    //     },
-    //     s(desc, title = "Great!") {
-    //         this.$Notice.success({
-    //             title: title,
-    //             desc: desc
-    //         });
-    //     },
-    //     w(desc, title = "Oops!") {
-    //         this.$Notice.warning({
-    //             title: title,
-    //             desc: desc
-    //         });
-    //     },
-    //     e(desc, title = "Oops!") {
-    //         this.$Notice.error({
-    //             title: title,
-    //             desc: desc
-    //         });
-    //     },
-    //     swr(desc = 'Somethingn went wrong! Please try again.', title = "Oops") {
-    //         this.$Notice.error({
-    //             title: title,
-    //             desc: desc
-    //         });
-    //     },
-    //     checkUserPermission(key) {
+    },
+    i: function i(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Hey";
+      this.$Notice.info({
+        title: title,
+        desc: desc
+      });
+    },
+    s: function s(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Great!";
+      this.$Notice.success({
+        title: title,
+        desc: desc
+      });
+    },
+    w: function w(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Oops!";
+      this.$Notice.warning({
+        title: title,
+        desc: desc
+      });
+    },
+    e: function e(desc) {
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Oops!";
+      this.$Notice.error({
+        title: title,
+        desc: desc
+      });
+    },
+    swr: function swr() {
+      var desc = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Somethingn went wrong! Please try again.';
+      var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "Oops";
+      this.$Notice.error({
+        title: title,
+        desc: desc
+      });
+    } //     checkUserPermission(key) {
     //         if (!this.userPermission) return true
     //         let isPermitted = false;
     //         for (let d of this.userPermission) {
