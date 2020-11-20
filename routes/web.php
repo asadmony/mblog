@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/app/create_tag', 'TestController@create') ;
+Route::get('admin/tags', 'TagController@index') ;
+Route::post('admin/tag/create', 'TagController@create');
 Route::get('/', function () {
     return view('welcome');
 });

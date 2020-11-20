@@ -19,10 +19,10 @@
 
 
 								<!-- ITEMS -->
-							<tr>
-								<td>1</td>
-								<td class="_table_name">Manhattan's art center "Shed" opening ceremony</td>
-								<td>Economy</td>
+							<tr v-for="(tag, i) in tags" :key="i" v-if="tags.length">
+								<td>{{ tag.id }}</td>
+								<td class="_table_name">{{ tag.tagName }}</td>
+								<td>{{ tag.created_at }}</td>
 								<td>
                                     <Button type="info" size="small">Edit</Button>
                                     <Button type="error" size="small">Delete</Button>
@@ -40,14 +40,13 @@
                 <Modal
                     v-model="addModal"
                     title="Add Tag"
-                    :mask-closable="false">
-                    <p>Content of dialog</p>
-                    <p>Content of dialog</p>
-                    <p>Content of dialog</p>
+                    :mask-closable="false"
+                    :closable="false">
 
+                    <input v-model="data.tagName" placeholder="Enter something" />
                     <div slot="footer">
                         <button type="default" @click="addModal=false">Close</button>
-                        <button type="primary" @click="addTag">Add</button>
+                        <button type="primary" @click="addTag" :disabled="isAdding" :loading="isAdding">{{ isAdding ? 'Adding...' : 'add tag' }}</button>
                     </div>
                 </Modal>
 			</div>
@@ -63,12 +62,30 @@ export default {
             },
             addModal : false,
             isAdding: false,
+            tags : [],
         }
     },
     methods: {
-        // if(this.data.tagName.trim()=='') {
-        //     return this.e('Tag name is required'
-        //     )},
+        async addTag(){
+            if(this.data.tagName.trim()=='') {
+            return this.e('Tag name is required')
+            const res= await this.callApi('post', 'admin/tag/create', this.data)
+            if(res.status === 200){
+                this.s('Tag has been added successfully!')
+                this.addModal = false
+            }
+            }
+        },
+
+    },
+    async created(){
+            const res = await this.callApi('get', 'admin/tags')
+                if(res.status==200){
+                    this.tags = res.data
+                }else{
+                    this.swr();
+                }
+
     },
 }
 </script>
